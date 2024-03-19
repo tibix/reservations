@@ -2,13 +2,11 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\Activity;
 use Illuminate\Http\UploadedFile;
-
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -68,7 +66,7 @@ class CompanyActivityTest extends TestCase
 
     public function test_can_upload_image()
     {
-        Storage::fake('public');
+        Storage::fake('activities');
 
         $company = Company::factory()->create();
         $user = User::factory()->companyOwner()->create(['company_id' => $company->id]);
@@ -85,12 +83,13 @@ class CompanyActivityTest extends TestCase
             'image' => $file,
         ]);
 
-        Storage::disk('public')->assertExists('activities/' . $file->hashName());
+        Storage::disk('activities')->assertExists($file->hashName());
+        Storage::disk('activities')->assertExists('thumbs/' . $file->hashName());
     }
 
     public function test_cannon_upload_non_image_file()
     {
-        Storage::fake('public');
+        Storage::fake('activities');
 
         $company = Company::factory()->create();
         $user = User::factory()->companyOwner()->create(['company_id' => $company->id]);
@@ -109,7 +108,7 @@ class CompanyActivityTest extends TestCase
 
         $response->assertSessionHasErrors(['image']);
 
-        Storage::disk('public')->assertMissing('activities/' . $file->hashName());
+        Storage::disk('activities')->assertMissing($file->hashName());
     }
 
     public function test_guides_are_shown_only_for_specific_company_in_create_form()
