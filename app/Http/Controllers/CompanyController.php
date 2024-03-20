@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use Illuminate\View\View;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;

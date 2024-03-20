@@ -88,7 +88,7 @@ class RegisteredUserController extends Controller
 
             $user->notify(new RegisteredToActivityNotification($activity));
 
-            return redirect()->route('my-activity.show')->with('success', 'You have successfully registered.');
+            return redirect()->route('my_activity.show')->with('success', 'You have successfully registered.');
         }
 
         return redirect(route('home', absolute: false));

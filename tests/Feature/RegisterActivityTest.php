@@ -46,7 +46,7 @@ class RegisterActivityTest extends TestCase
 
         Notification::assertSentTo($user, RegisteredToActivityNotification::class);
 
-        $response->assertRedirect(route('my-activity.show'));
+        $response->assertRedirect(route('my_activity.show'));
 
         $this->assertCount(1, $user->activities()->get());
     }
@@ -59,7 +59,7 @@ class RegisterActivityTest extends TestCase
         $activity = Activity::factory()->create();
 
         $response = $this->actingAs($user)->post(route('activities.register', $activity));
-        $response->assertRedirect(route('my-activity.show'));
+        $response->assertRedirect(route('my_activity.show'));
 
         $r = $this->actingAs($user)->post(route('activities.register', $activity));
         $r->assertStatus(409);
@@ -93,6 +93,6 @@ class RegisterActivityTest extends TestCase
 
         Notification::assertSentTo(User::where('email', 'test@test.com')->first(), RegisteredToActivityNotification::class);
 
-        $response->assertRedirect(route('my-activity.show'));
+        $response->assertRedirect(route('my_activity.show'));
     }
 }
