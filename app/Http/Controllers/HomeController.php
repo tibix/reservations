@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
+
 class HomeController extends Controller
 {
     public function __invoke()
